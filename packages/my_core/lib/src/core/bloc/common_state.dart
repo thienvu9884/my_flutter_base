@@ -9,8 +9,7 @@ class CommonState<T> with _$CommonState<T> implements AppStateBase {
 
   const factory CommonState.initial() = _Initial;
 
-  // const factory CommonState.loading() = _Loading;
-  const factory CommonState.loading({@Default(0) int timestamp}) = _Loading;
+  const factory CommonState.loading() = _Loading;
 
   const factory CommonState.success(T data) = _Success<T>;
 

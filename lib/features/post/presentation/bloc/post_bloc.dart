@@ -13,7 +13,7 @@ class PostBloc extends BaseBloc<PostEvent, CommonState<List<PostEntity>>> {
     on<PostEvent>((event, emit) async {
       await event.when(
         getPosts: () async {
-          emit(CommonState.loading(timestamp: DateTime.now().millisecondsSinceEpoch));
+          emit(CommonState.loading());
 
           try {
             final result = await _getPostsUseCase.execute();

@@ -1,3 +1,6 @@
 {
-  "hello": "Xin chào"
+  "@@locale": "vi",
+  "hello": "Xin chào",
+  "posts": "Bài viết",
+  "noData": "Không có dữ liệu"
 }

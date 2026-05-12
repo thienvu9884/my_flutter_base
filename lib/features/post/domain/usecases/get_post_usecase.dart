@@ -6,7 +6,7 @@ import 'package:injectable/injectable.dart';
 class GetPostUseCase {
   final PostRepository repository;
 
-  GetPostUseCase(this.repository);
+  GetPostUseCase(@Named('firestore') this.repository);
 
   Future<List<PostEntity>> execute() => repository.getPosts();
 }

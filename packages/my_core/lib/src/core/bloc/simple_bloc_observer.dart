@@ -19,17 +19,16 @@ class SimpleBlocObserver extends BlocObserver {
   @override
   void onChange(BlocBase bloc, Change change) {
     super.onChange(bloc, change);
-    final currentStateName = change.currentState.runtimeType;
-    final nextStateName = change.nextState.runtimeType;
+    final currentStateName = change.currentState.toString().length > 200
+        ? change.currentState.runtimeType
+        : change.currentState;
+    final nextStateName = change.nextState.toString().length > 200
+        ? change.nextState.runtimeType
+        : change.nextState;
 
     log(
       '🔵 [Change] ${bloc.runtimeType} | Current: $currentStateName -> Next: $nextStateName',
     );
-    print('--------------------------------');
-    print('Type: ${bloc.runtimeType}');
-    print('Current: ${change.currentState}');
-    print('Next: ${change.nextState}');
-    print('--------------------------------');
   }
 
   @override

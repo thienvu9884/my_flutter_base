@@ -1,8 +1,10 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/cubit/locale/locale_cubit.dart';
 import 'package:flutter_base/di.dart';
-import 'package:flutter_base/features/post/presentation/screens/post_screen.dart';
 import 'package:flutter_base/core/cubit/theme/theme_cubit.dart';
+import 'package:flutter_base/features/translate/presentation/screens/languages_screen.dart';
+import 'package:flutter_base/firebase_options.dart';
 import 'package:flutter_base/generated/l10n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:my_core/import.dart';
@@ -11,6 +13,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await setupLocator();
   Bloc.observer = const SimpleBlocObserver();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
 
@@ -35,9 +38,9 @@ class MyAppView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Lắng nghe sự thay đổi của ThemeMode
-    final themeMode = context.select((ThemeCubit cubit) => cubit.state);
+    // final themeMode = context.select((ThemeCubit cubit) => cubit.state);
     // Lắng nghe sự thay đổi của Locale
-    final locale = context.select((LocaleCubit cubit) => cubit.state);
+    // final locale = context.select((LocaleCubit cubit) => cubit.state);
 
     return BlocProvider(
       create: (_) => di<ThemeCubit>(),
@@ -48,7 +51,7 @@ class MyAppView extends StatelessWidget {
             title: 'Flutter Base',
             theme: AppThemeFactory.create(isDark: false),
             darkTheme: AppThemeFactory.create(isDark: true),
-            home: const PostScreen(),
+            home: const LanguagesScreen(),
             localizationsDelegates: [
               S.delegate,
               GlobalMaterialLocalizations.delegate,

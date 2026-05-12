@@ -17,13 +17,10 @@ class CommonStateWidget<S extends AppStateBase> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // 1. Kiểm tra Loading
     if (state.isLoading) {
-      print('loadinggggggggg');
       return loadingView ?? const Center(child: CircularProgressIndicator());
     }
 
-    // 2. Kiểm tra Lỗi
     if (state.error != null) {
       return Center(
         child: Column(
@@ -37,12 +34,10 @@ class CommonStateWidget<S extends AppStateBase> extends StatelessWidget {
       );
     }
 
-    // 3. Nếu không có data (tùy chọn)
     if (!state.hasData && !state.isLoading) {
       return const Center(child: Text("Không có dữ liệu"));
     }
 
-    // 4. Trả về nội dung chính khi đã thành công
     return child;
   }
 }

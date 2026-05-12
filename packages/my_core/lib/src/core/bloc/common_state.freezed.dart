@@ -128,11 +128,11 @@ return failure(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function( int timestamp)?  loading,TResult Function( T data)?  success,TResult Function( String message)?  failure,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( T data)?  success,TResult Function( String message)?  failure,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case _Loading() when loading != null:
-return loading(_that.timestamp);case _Success() when success != null:
+return loading();case _Success() when success != null:
 return success(_that.data);case _Failure() when failure != null:
 return failure(_that.message);case _:
   return orElse();
@@ -152,11 +152,11 @@ return failure(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function( int timestamp)  loading,required TResult Function( T data)  success,required TResult Function( String message)  failure,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( T data)  success,required TResult Function( String message)  failure,}) {final _that = this;
 switch (_that) {
 case _Initial():
 return initial();case _Loading():
-return loading(_that.timestamp);case _Success():
+return loading();case _Success():
 return success(_that.data);case _Failure():
 return failure(_that.message);case _:
   throw StateError('Unexpected subclass');
@@ -175,11 +175,11 @@ return failure(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function( int timestamp)?  loading,TResult? Function( T data)?  success,TResult? Function( String message)?  failure,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( T data)?  success,TResult? Function( String message)?  failure,}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case _Loading() when loading != null:
-return loading(_that.timestamp);case _Success() when success != null:
+return loading();case _Success() when success != null:
 return success(_that.data);case _Failure() when failure != null:
 return failure(_that.message);case _:
   return null;
@@ -225,67 +225,33 @@ String toString() {
 
 
 class _Loading<T> extends CommonState<T> {
-  const _Loading({this.timestamp = 0}): super._();
+  const _Loading(): super._();
   
 
-@JsonKey() final  int timestamp;
 
-/// Create a copy of CommonState
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-_$LoadingCopyWith<T, _Loading<T>> get copyWith => __$LoadingCopyWithImpl<T, _Loading<T>>(this, _$identity);
+
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Loading<T>&&(identical(other.timestamp, timestamp) || other.timestamp == timestamp));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Loading<T>);
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,timestamp);
+int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'CommonState<$T>.loading(timestamp: $timestamp)';
+  return 'CommonState<$T>.loading()';
 }
 
 
 }
 
-/// @nodoc
-abstract mixin class _$LoadingCopyWith<T,$Res> implements $CommonStateCopyWith<T, $Res> {
-  factory _$LoadingCopyWith(_Loading<T> value, $Res Function(_Loading<T>) _then) = __$LoadingCopyWithImpl;
-@useResult
-$Res call({
- int timestamp
-});
 
 
-
-
-}
-/// @nodoc
-class __$LoadingCopyWithImpl<T,$Res>
-    implements _$LoadingCopyWith<T, $Res> {
-  __$LoadingCopyWithImpl(this._self, this._then);
-
-  final _Loading<T> _self;
-  final $Res Function(_Loading<T>) _then;
-
-/// Create a copy of CommonState
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? timestamp = null,}) {
-  return _then(_Loading<T>(
-timestamp: null == timestamp ? _self.timestamp : timestamp // ignore: cast_nullable_to_non_nullable
-as int,
-  ));
-}
-
-
-}
 
 /// @nodoc
 
