@@ -1,5 +1,5 @@
 import 'package:flutter_base/features/translate/domain/entities/language_entity.dart';
-import 'package:flutter_base/features/translate/domain/usecases/manager_vocabulary_usecase.dart';
+import 'package:flutter_base/features/translate/domain/usecases/language_usecase.dart';
 import 'package:injectable/injectable.dart';
 import 'package:my_core/import.dart';
 
@@ -13,11 +13,11 @@ class LanguagesBloc
   LanguagesBloc(this._languagesUseCase) : super(const CommonState.initial()) {
     on<LanguagesEvent>((event, emit) async {
       await event.when(
-        getLanguages: () async {
-          emit(CommonState.loading());
+        getLanguages: (category) async {
+          emit(const CommonState.loading());
 
           try {
-            final result = await _languagesUseCase.execute();
+            final result = await _languagesUseCase.execute(category);
             emit(CommonState.success(result));
           } catch (e) {
             emit(CommonState.failure(e.toString()));

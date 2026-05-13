@@ -22,6 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "category": MessageLookupByLibrary.simpleMessage("Danh mục"),
     "hello": MessageLookupByLibrary.simpleMessage("Xin chào"),
     "noData": MessageLookupByLibrary.simpleMessage("Không có dữ liệu"),
     "posts": MessageLookupByLibrary.simpleMessage("Bài viết"),

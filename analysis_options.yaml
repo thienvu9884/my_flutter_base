@@ -23,6 +23,17 @@ linter:
   rules:
     # avoid_print: false  # Uncomment to disable the `avoid_print` rule
     # prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
+    # Cảnh báo khi một constructor có thể là const nhưng chưa được khai báo const
+    prefer_const_constructors: true
+
+    # Cảnh báo khi khai báo const cho các biến/giá trị lặp lại không cần thiết
+    unnecessary_const: true
+
+    # Ưu tiên dùng const cho các giá trị literal (như List, Map, Set)
+    prefer_const_literals_to_create_immutables: true
+
+    # Ưu tiên dùng const khi khởi tạo các biến local
+    prefer_const_declarations: true
 
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options

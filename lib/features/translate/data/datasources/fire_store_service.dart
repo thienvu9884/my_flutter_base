@@ -8,19 +8,20 @@ class LanguageFireStoreService {
 
   LanguageFireStoreService(this._firestore);
 
-  Future<List<LanguageModel>> getLanguages() async {
-    final vocabularies = await _firestore
-        .collection('languages')
-        .limit(20)
-        .get();
+  Future<List<LanguageModel>> getLanguages(String category) async {
+    final vocabularies = await _firestore.collection(category).limit(20).get();
     return vocabularies.docs
         .map((doc) => LanguageModel.fromJson(doc.data()))
         .toList();
   }
 
-  Future<LanguageModel> addVocabulary(String en, String vi) async {
+  Future<LanguageModel> addVocabulary({
+    required String category,
+    required String en,
+    required String vi,
+  }) async {
     final now = DateTime.now();
-    final collection = _firestore.collection('languages');
+    final collection = _firestore.collection(category);
     final docRef = collection.doc();
     await docRef.set(
       LanguageModel(

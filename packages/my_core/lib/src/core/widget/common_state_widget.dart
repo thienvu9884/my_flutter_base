@@ -34,7 +34,7 @@ class CommonStateWidget<S extends AppStateBase> extends StatelessWidget {
       );
     }
 
-    if (!state.hasData && !state.isLoading) {
+    if (!state.hasData) {
       return const Center(child: Text("Không có dữ liệu"));
     }
 

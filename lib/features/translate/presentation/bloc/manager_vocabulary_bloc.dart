@@ -1,5 +1,5 @@
 import 'package:flutter_base/features/translate/domain/entities/language_entity.dart';
-import 'package:flutter_base/features/translate/domain/usecases/manager_vocabulary_usecase.dart';
+import 'package:flutter_base/features/translate/domain/usecases/language_usecase.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:my_core/import.dart';
@@ -19,11 +19,15 @@ class ManagerVocabularyBloc
     : super(const ManagerVocabularyState.initial()) {
     on<ManagerVocabularyEvent>((event, emit) async {
       await event.when(
-        addVocabulary: (String en, String vi) async {
+        addVocabulary: (String category, String en, String vi) async {
           emit(const ManagerVocabularyState.adding());
 
           try {
-            final language = await _languagesUseCase.addVocabulary(en, vi);
+            final language = await _languagesUseCase.addVocabulary(
+              category: category,
+              en: en,
+              vi: vi,
+            );
 
             emit(ManagerVocabularyState.success(language));
           } catch (e) {

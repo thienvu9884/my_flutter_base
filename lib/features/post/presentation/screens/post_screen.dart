@@ -32,12 +32,12 @@ class PostView extends StatelessWidget {
           IconButton(
             onPressed: () => di<ThemeCubit>().toggleTheme(),
             icon: context.watch<ThemeCubit>().state == ThemeMode.dark
-                ? Icon(Icons.light_mode)
-                : Icon(Icons.dark_mode),
+                ? const Icon(Icons.light_mode)
+                : const Icon(Icons.dark_mode),
           ),
           IconButton(
             onPressed: () => di<LocaleCubit>().changeLocale(),
-            icon: Icon(Icons.language_rounded),
+            icon: const Icon(Icons.language_rounded),
           ),
         ],
       ),

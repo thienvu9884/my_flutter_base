@@ -17,6 +17,16 @@ import 'package:my_core/module_config.module.dart' as _i880;
 
 import 'core/cubit/locale/locale_cubit.dart' as _i867;
 import 'core/cubit/theme/theme_cubit.dart' as _i501;
+import 'features/categories/data/datasources/categories_api_service.dart'
+    as _i173;
+import 'features/categories/data/repositories/categories_repository_impl.dart'
+    as _i565;
+import 'features/categories/domain/repository/category_repository.dart'
+    as _i976;
+import 'features/categories/domain/usecases/category_use_cases.dart' as _i958;
+import 'features/categories/presentation/blocs/category_bloc.dart' as _i92;
+import 'features/categories/presentation/blocs/manager_category_bloc.dart'
+    as _i95;
 import 'features/post/data/datasources/api_service.dart' as _i847;
 import 'features/post/data/datasources/fire_store_service.dart' as _i498;
 import 'features/post/data/repositories/post_repository_impl.dart' as _i1008;
@@ -26,13 +36,12 @@ import 'features/post/presentation/bloc/post_bloc.dart' as _i156;
 import 'features/translate/data/datasources/fire_store_service.dart' as _i208;
 import 'features/translate/data/repositories/language_repository_impl.dart'
     as _i347;
-import 'features/translate/domain/repositories/language_repository.dart'
-    as _i350;
-import 'features/translate/domain/usecases/manager_vocabulary_usecase.dart'
-    as _i292;
+import 'features/translate/domain/repository/language_repository.dart'
+    as _i1054;
+import 'features/translate/domain/usecases/language_usecase.dart' as _i426;
 import 'features/translate/presentation/bloc/languages_bloc.dart' as _i344;
-import 'features/translate/presentation/manager_vocabulary_bloc/manager_vocabulary_bloc.dart'
-    as _i142;
+import 'features/translate/presentation/bloc/manager_vocabulary_bloc.dart'
+    as _i1046;
 import 'injection_module.dart' as _i212;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -60,13 +69,22 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i1008.PostRepositoryImpl(gh<_i847.ApiService>()),
       instanceName: 'retrofit',
     );
+    gh.lazySingleton<_i173.CategoriesApiService>(
+      () => _i173.CategoriesApiService(gh<_i974.FirebaseFirestore>()),
+    );
     gh.lazySingleton<_i498.FireStoreApiService>(
       () => _i498.FireStoreApiService(gh<_i974.FirebaseFirestore>()),
     );
     gh.lazySingleton<_i208.LanguageFireStoreService>(
       () => _i208.LanguageFireStoreService(gh<_i974.FirebaseFirestore>()),
     );
-    gh.lazySingleton<_i350.LanguageRepository>(
+    gh.lazySingleton<_i976.CategoryRepository>(
+      () => _i565.CategoriesRepositoryImpl(gh<_i173.CategoriesApiService>()),
+    );
+    gh.lazySingleton<_i958.CategoryUseCase>(
+      () => _i958.CategoryUseCase(gh<_i976.CategoryRepository>()),
+    );
+    gh.lazySingleton<_i1054.LanguageRepository>(
       () => _i347.LanguageRepositoryImpl(gh<_i208.LanguageFireStoreService>()),
     );
     gh.lazySingleton<_i857.PostRepository>(
@@ -75,19 +93,25 @@ extension GetItInjectableX on _i174.GetIt {
       ),
       instanceName: 'firestore',
     );
+    gh.factory<_i92.CategoryBloc>(
+      () => _i92.CategoryBloc(gh<_i958.CategoryUseCase>()),
+    );
+    gh.factory<_i95.ManagerCategoryBloc>(
+      () => _i95.ManagerCategoryBloc(gh<_i958.CategoryUseCase>()),
+    );
     gh.lazySingleton<_i624.GetPostUseCase>(
       () => _i624.GetPostUseCase(
         gh<_i857.PostRepository>(instanceName: 'firestore'),
       ),
     );
-    gh.lazySingleton<_i292.LanguagesUseCase>(
-      () => _i292.LanguagesUseCase(gh<_i350.LanguageRepository>()),
+    gh.lazySingleton<_i426.LanguagesUseCase>(
+      () => _i426.LanguagesUseCase(gh<_i1054.LanguageRepository>()),
     );
     gh.factory<_i344.LanguagesBloc>(
-      () => _i344.LanguagesBloc(gh<_i292.LanguagesUseCase>()),
+      () => _i344.LanguagesBloc(gh<_i426.LanguagesUseCase>()),
     );
-    gh.factory<_i142.ManagerVocabularyBloc>(
-      () => _i142.ManagerVocabularyBloc(gh<_i292.LanguagesUseCase>()),
+    gh.factory<_i1046.ManagerVocabularyBloc>(
+      () => _i1046.ManagerVocabularyBloc(gh<_i426.LanguagesUseCase>()),
     );
     gh.factory<_i156.PostBloc>(
       () => _i156.PostBloc(gh<_i624.GetPostUseCase>()),

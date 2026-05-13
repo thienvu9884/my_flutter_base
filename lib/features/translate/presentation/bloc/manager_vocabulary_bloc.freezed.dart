@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ManagerVocabularyEvent {
 
- String get en; String get vi;
+ String get category; String get en; String get vi;
 /// Create a copy of ManagerVocabularyEvent
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $ManagerVocabularyEventCopyWith<ManagerVocabularyEvent> get copyWith => _$Manage
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ManagerVocabularyEvent&&(identical(other.en, en) || other.en == en)&&(identical(other.vi, vi) || other.vi == vi));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ManagerVocabularyEvent&&(identical(other.category, category) || other.category == category)&&(identical(other.en, en) || other.en == en)&&(identical(other.vi, vi) || other.vi == vi));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,en,vi);
+int get hashCode => Object.hash(runtimeType,category,en,vi);
 
 @override
 String toString() {
-  return 'ManagerVocabularyEvent(en: $en, vi: $vi)';
+  return 'ManagerVocabularyEvent(category: $category, en: $en, vi: $vi)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $ManagerVocabularyEventCopyWith<$Res>  {
   factory $ManagerVocabularyEventCopyWith(ManagerVocabularyEvent value, $Res Function(ManagerVocabularyEvent) _then) = _$ManagerVocabularyEventCopyWithImpl;
 @useResult
 $Res call({
- String en, String vi
+ String category, String en, String vi
 });
 
 
@@ -62,9 +62,10 @@ class _$ManagerVocabularyEventCopyWithImpl<$Res>
 
 /// Create a copy of ManagerVocabularyEvent
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? en = null,Object? vi = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? category = null,Object? en = null,Object? vi = null,}) {
   return _then(_self.copyWith(
-en: null == en ? _self.en : en // ignore: cast_nullable_to_non_nullable
+category: null == category ? _self.category : category // ignore: cast_nullable_to_non_nullable
+as String,en: null == en ? _self.en : en // ignore: cast_nullable_to_non_nullable
 as String,vi: null == vi ? _self.vi : vi // ignore: cast_nullable_to_non_nullable
 as String,
   ));
@@ -151,10 +152,10 @@ return addVocabulary(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String en,  String vi)?  addVocabulary,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String category,  String en,  String vi)?  addVocabulary,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _AddVocabulary() when addVocabulary != null:
-return addVocabulary(_that.en,_that.vi);case _:
+return addVocabulary(_that.category,_that.en,_that.vi);case _:
   return orElse();
 
 }
@@ -172,10 +173,10 @@ return addVocabulary(_that.en,_that.vi);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String en,  String vi)  addVocabulary,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String category,  String en,  String vi)  addVocabulary,}) {final _that = this;
 switch (_that) {
 case _AddVocabulary():
-return addVocabulary(_that.en,_that.vi);case _:
+return addVocabulary(_that.category,_that.en,_that.vi);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -192,10 +193,10 @@ return addVocabulary(_that.en,_that.vi);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String en,  String vi)?  addVocabulary,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String category,  String en,  String vi)?  addVocabulary,}) {final _that = this;
 switch (_that) {
 case _AddVocabulary() when addVocabulary != null:
-return addVocabulary(_that.en,_that.vi);case _:
+return addVocabulary(_that.category,_that.en,_that.vi);case _:
   return null;
 
 }
@@ -207,9 +208,10 @@ return addVocabulary(_that.en,_that.vi);case _:
 
 
 class _AddVocabulary extends ManagerVocabularyEvent {
-  const _AddVocabulary({required this.en, required this.vi}): super._();
+  const _AddVocabulary({required this.category, required this.en, required this.vi}): super._();
   
 
+@override final  String category;
 @override final  String en;
 @override final  String vi;
 
@@ -223,16 +225,16 @@ _$AddVocabularyCopyWith<_AddVocabulary> get copyWith => __$AddVocabularyCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AddVocabulary&&(identical(other.en, en) || other.en == en)&&(identical(other.vi, vi) || other.vi == vi));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AddVocabulary&&(identical(other.category, category) || other.category == category)&&(identical(other.en, en) || other.en == en)&&(identical(other.vi, vi) || other.vi == vi));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,en,vi);
+int get hashCode => Object.hash(runtimeType,category,en,vi);
 
 @override
 String toString() {
-  return 'ManagerVocabularyEvent.addVocabulary(en: $en, vi: $vi)';
+  return 'ManagerVocabularyEvent.addVocabulary(category: $category, en: $en, vi: $vi)';
 }
 
 
@@ -243,7 +245,7 @@ abstract mixin class _$AddVocabularyCopyWith<$Res> implements $ManagerVocabulary
   factory _$AddVocabularyCopyWith(_AddVocabulary value, $Res Function(_AddVocabulary) _then) = __$AddVocabularyCopyWithImpl;
 @override @useResult
 $Res call({
- String en, String vi
+ String category, String en, String vi
 });
 
 
@@ -260,9 +262,10 @@ class __$AddVocabularyCopyWithImpl<$Res>
 
 /// Create a copy of ManagerVocabularyEvent
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? en = null,Object? vi = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? category = null,Object? en = null,Object? vi = null,}) {
   return _then(_AddVocabulary(
-en: null == en ? _self.en : en // ignore: cast_nullable_to_non_nullable
+category: null == category ? _self.category : category // ignore: cast_nullable_to_non_nullable
+as String,en: null == en ? _self.en : en // ignore: cast_nullable_to_non_nullable
 as String,vi: null == vi ? _self.vi : vi // ignore: cast_nullable_to_non_nullable
 as String,
   ));

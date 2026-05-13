@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base/core/cubit/locale/locale_cubit.dart';
 import 'package:flutter_base/di.dart';
 import 'package:flutter_base/core/cubit/theme/theme_cubit.dart';
-import 'package:flutter_base/features/translate/presentation/screens/languages_screen.dart';
+import 'package:flutter_base/features/categories/presentation/pages/categories_page.dart';
 import 'package:flutter_base/firebase_options.dart';
 import 'package:flutter_base/generated/l10n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -51,8 +51,7 @@ class MyAppView extends StatelessWidget {
             title: 'Flutter Base',
             theme: AppThemeFactory.create(isDark: false),
             darkTheme: AppThemeFactory.create(isDark: true),
-            home: const LanguagesScreen(),
-            localizationsDelegates: [
+            localizationsDelegates: const [
               S.delegate,
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
@@ -60,6 +59,7 @@ class MyAppView extends StatelessWidget {
             ],
             supportedLocales: S.delegate.supportedLocales,
             locale: context.watch<LocaleCubit>().state,
+            home: const CategoriesPage(),
           );
         },
       ),

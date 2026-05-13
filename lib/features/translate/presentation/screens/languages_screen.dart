@@ -6,59 +6,65 @@ import 'package:flutter_base/core/extensions/app_extensions.dart';
 import 'package:flutter_base/features/translate/domain/entities/language_entity.dart';
 import 'package:flutter_base/features/translate/presentation/bloc/languages_bloc.dart';
 import 'package:flutter_base/features/translate/presentation/bloc/languages_event.dart';
-import 'package:flutter_base/features/translate/presentation/manager_vocabulary_bloc/manager_vocabulary_bloc.dart';
+import 'package:flutter_base/features/translate/presentation/bloc/manager_vocabulary_bloc.dart';
 import 'package:my_core/import.dart';
 
 class LanguagesScreen extends StatelessWidget {
-  const LanguagesScreen({super.key});
+  final String category;
+
+  const LanguagesScreen({super.key, required this.category});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) =>
-          di<LanguagesBloc>()..add(const LanguagesEvent.getLanguages()),
-      child: const PostView(),
+          di<LanguagesBloc>()
+            ..add(LanguagesEvent.getLanguages(category: category)),
+      child: PostView(category: category),
     );
   }
 }
 
 class PostView extends StatelessWidget {
-  const PostView({super.key});
+  final String category;
+
+  const PostView({super.key, required this.category});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(context.translate.posts),
+        title: Text(category),
         actions: [
           IconButton(
             onPressed: () => di<ThemeCubit>().toggleTheme(),
             icon: context.watch<ThemeCubit>().state == ThemeMode.dark
-                ? Icon(Icons.light_mode)
-                : Icon(Icons.dark_mode),
+                ? const Icon(Icons.light_mode)
+                : const Icon(Icons.dark_mode),
           ),
           IconButton(
             onPressed: () => di<LocaleCubit>().changeLocale(),
-            icon: Icon(Icons.language_rounded),
+            icon: const Icon(Icons.language_rounded),
           ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _showAddLanguageDialog(context),
+        child: const Icon(Icons.add, color: Colors.white),
       ),
       body: BlocBuilder<LanguagesBloc, CommonState<List<LanguageEntity>>>(
         builder: (context, state) {
-          final posts = state.data ?? [];
+          final vocabulary = state.data ?? [];
 
           return CommonStateWidget(
             state: state,
             onRetry: () => context.read<LanguagesBloc>().add(
-              const LanguagesEvent.getLanguages(),
+              LanguagesEvent.getLanguages(category: category),
             ),
             child: ListView.builder(
-              itemCount: posts.length,
+              itemCount: vocabulary.length,
               itemBuilder: (context, index) {
-                final post = posts[index];
+                final post = vocabulary[index];
                 return ListTile(
                   title: Text(
                     post.english,
@@ -118,7 +124,9 @@ class PostView extends StatelessWidget {
                 listener: (context, state) {
                   state.whenOrNull(
                     success: (_) {
-                      languageBloc.add(const LanguagesEvent.getLanguages());
+                      languageBloc.add(
+                        LanguagesEvent.getLanguages(category: category),
+                      );
 
                       Navigator.pop(context);
                       ScaffoldMessenger.of(context).showSnackBar(
@@ -135,7 +143,11 @@ class PostView extends StatelessWidget {
 
                       if (eng.isNotEmpty && vi.isNotEmpty) {
                         context.read<ManagerVocabularyBloc>().add(
-                          ManagerVocabularyEvent.addVocabulary(en: eng, vi: vi),
+                          ManagerVocabularyEvent.addVocabulary(
+                            category: category,
+                            en: eng,
+                            vi: vi,
+                          ),
                         );
                       }
                     },

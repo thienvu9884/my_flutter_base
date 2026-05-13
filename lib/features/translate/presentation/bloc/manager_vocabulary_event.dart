@@ -5,6 +5,7 @@ abstract class ManagerVocabularyEvent with _$ManagerVocabularyEvent {
   const ManagerVocabularyEvent._();
 
   const factory ManagerVocabularyEvent.addVocabulary({
+    required String category,
     required String en,
     required String vi,
   }) = _AddVocabulary;

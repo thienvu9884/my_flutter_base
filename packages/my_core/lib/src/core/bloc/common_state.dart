@@ -24,8 +24,11 @@ class CommonState<T> with _$CommonState<T> implements AppStateBase {
       maybeWhen(failure: (message) => message, orElse: () => null);
 
   @override
-  bool get hasData => this is _Success<T>;
+  bool get hasData {
+    return this is _Success<T> && data is List
+        ? (data as List).isNotEmpty
+        : data != null;
+  }
 
-  // Getter tiện ích để lấy data nhanh
   T? get data => maybeWhen(success: (data) => data, orElse: () => null);
 }

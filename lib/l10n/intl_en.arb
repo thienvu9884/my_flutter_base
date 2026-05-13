@@ -1,5 +1,6 @@
 {
   "@@locale": "en",
+  "category": "Categories",
   "hello": "Hello",
   "posts": "Posts",
   "noData": "No data"

@@ -54,6 +54,11 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `Categories`
+  String get category {
+    return Intl.message('Categories', name: 'category', desc: '', args: []);
+  }
+
   /// `Hello`
   String get hello {
     return Intl.message('Hello', name: 'hello', desc: '', args: []);

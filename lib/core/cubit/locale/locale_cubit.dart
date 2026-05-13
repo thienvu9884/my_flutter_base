@@ -14,19 +14,19 @@ class LocaleCubit extends Cubit<Locale> {
   Future<void> _loadLocale() async {
     final languageCode = await _storageService.read(_localeKey);
     if (languageCode == 'vi') {
-      emit(Locale('vi'));
+      emit(const Locale('vi'));
     } else if (languageCode == 'en') {
-      emit(Locale('en'));
+      emit(const Locale('en'));
     }
   }
 
   Future<void> changeLocale() async {
     Locale locale;
 
-    if (state == Locale('vi')) {
-      locale = Locale('en');
+    if (state == const Locale('vi')) {
+      locale = const Locale('en');
     } else {
-      locale = Locale('vi');
+      locale = const Locale('vi');
     }
 
     emit(locale);

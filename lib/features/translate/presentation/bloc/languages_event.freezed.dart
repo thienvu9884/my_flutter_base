@@ -14,30 +14,61 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$LanguagesEvent {
 
-
+ String get category;
+/// Create a copy of LanguagesEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$LanguagesEventCopyWith<LanguagesEvent> get copyWith => _$LanguagesEventCopyWithImpl<LanguagesEvent>(this as LanguagesEvent, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is LanguagesEvent);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is LanguagesEvent&&(identical(other.category, category) || other.category == category));
 }
 
 
 @override
-int get hashCode => runtimeType.hashCode;
+int get hashCode => Object.hash(runtimeType,category);
 
 @override
 String toString() {
-  return 'LanguagesEvent()';
+  return 'LanguagesEvent(category: $category)';
 }
 
 
 }
 
 /// @nodoc
-class $LanguagesEventCopyWith<$Res>  {
-$LanguagesEventCopyWith(LanguagesEvent _, $Res Function(LanguagesEvent) __);
+abstract mixin class $LanguagesEventCopyWith<$Res>  {
+  factory $LanguagesEventCopyWith(LanguagesEvent value, $Res Function(LanguagesEvent) _then) = _$LanguagesEventCopyWithImpl;
+@useResult
+$Res call({
+ String category
+});
+
+
+
+
+}
+/// @nodoc
+class _$LanguagesEventCopyWithImpl<$Res>
+    implements $LanguagesEventCopyWith<$Res> {
+  _$LanguagesEventCopyWithImpl(this._self, this._then);
+
+  final LanguagesEvent _self;
+  final $Res Function(LanguagesEvent) _then;
+
+/// Create a copy of LanguagesEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? category = null,}) {
+  return _then(_self.copyWith(
+category: null == category ? _self.category : category // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
 }
 
 
@@ -119,10 +150,10 @@ return getLanguages(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  getLanguages,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String category)?  getLanguages,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _GetLanguagesEvent() when getLanguages != null:
-return getLanguages();case _:
+return getLanguages(_that.category);case _:
   return orElse();
 
 }
@@ -140,10 +171,10 @@ return getLanguages();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  getLanguages,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String category)  getLanguages,}) {final _that = this;
 switch (_that) {
 case _GetLanguagesEvent():
-return getLanguages();case _:
+return getLanguages(_that.category);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -160,10 +191,10 @@ return getLanguages();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  getLanguages,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String category)?  getLanguages,}) {final _that = this;
 switch (_that) {
 case _GetLanguagesEvent() when getLanguages != null:
-return getLanguages();case _:
+return getLanguages(_that.category);case _:
   return null;
 
 }
@@ -175,32 +206,66 @@ return getLanguages();case _:
 
 
 class _GetLanguagesEvent extends LanguagesEvent {
-  const _GetLanguagesEvent(): super._();
+  const _GetLanguagesEvent({required this.category}): super._();
   
 
+@override final  String category;
 
-
+/// Create a copy of LanguagesEvent
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$GetLanguagesEventCopyWith<_GetLanguagesEvent> get copyWith => __$GetLanguagesEventCopyWithImpl<_GetLanguagesEvent>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _GetLanguagesEvent);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _GetLanguagesEvent&&(identical(other.category, category) || other.category == category));
 }
 
 
 @override
-int get hashCode => runtimeType.hashCode;
+int get hashCode => Object.hash(runtimeType,category);
 
 @override
 String toString() {
-  return 'LanguagesEvent.getLanguages()';
+  return 'LanguagesEvent.getLanguages(category: $category)';
 }
 
 
 }
 
+/// @nodoc
+abstract mixin class _$GetLanguagesEventCopyWith<$Res> implements $LanguagesEventCopyWith<$Res> {
+  factory _$GetLanguagesEventCopyWith(_GetLanguagesEvent value, $Res Function(_GetLanguagesEvent) _then) = __$GetLanguagesEventCopyWithImpl;
+@override @useResult
+$Res call({
+ String category
+});
 
 
+
+
+}
+/// @nodoc
+class __$GetLanguagesEventCopyWithImpl<$Res>
+    implements _$GetLanguagesEventCopyWith<$Res> {
+  __$GetLanguagesEventCopyWithImpl(this._self, this._then);
+
+  final _GetLanguagesEvent _self;
+  final $Res Function(_GetLanguagesEvent) _then;
+
+/// Create a copy of LanguagesEvent
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? category = null,}) {
+  return _then(_GetLanguagesEvent(
+category: null == category ? _self.category : category // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
 
 // dart format on

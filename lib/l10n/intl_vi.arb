@@ -1,5 +1,6 @@
 {
   "@@locale": "vi",
+  "category": "Danh mục",
   "hello": "Xin chào",
   "posts": "Bài viết",
   "noData": "Không có dữ liệu"
