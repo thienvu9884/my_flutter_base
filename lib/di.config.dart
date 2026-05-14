@@ -33,6 +33,14 @@ import 'features/post/data/repositories/post_repository_impl.dart' as _i1008;
 import 'features/post/domain/repositories/post_repository.dart' as _i857;
 import 'features/post/domain/usecases/get_post_usecase.dart' as _i624;
 import 'features/post/presentation/bloc/post_bloc.dart' as _i156;
+import 'features/take_a_test/data/datasources/fire_store_service.dart' as _i360;
+import 'features/take_a_test/data/repositories/vocabulary_repository_impl.dart'
+    as _i593;
+import 'features/take_a_test/domain/repository/vocabulary_repository.dart'
+    as _i321;
+import 'features/take_a_test/domain/usecases/vocabulary_use_case.dart' as _i292;
+import 'features/take_a_test/presentation/blocs/vocabulary_practice_bloc.dart'
+    as _i144;
 import 'features/translate/data/datasources/fire_store_service.dart' as _i208;
 import 'features/translate/data/repositories/language_repository_impl.dart'
     as _i347;
@@ -75,6 +83,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i498.FireStoreApiService>(
       () => _i498.FireStoreApiService(gh<_i974.FirebaseFirestore>()),
     );
+    gh.lazySingleton<_i360.LanguageFireStoreService>(
+      () => _i360.LanguageFireStoreService(gh<_i974.FirebaseFirestore>()),
+    );
     gh.lazySingleton<_i208.LanguageFireStoreService>(
       () => _i208.LanguageFireStoreService(gh<_i974.FirebaseFirestore>()),
     );
@@ -99,10 +110,17 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i95.ManagerCategoryBloc>(
       () => _i95.ManagerCategoryBloc(gh<_i958.CategoryUseCase>()),
     );
+    gh.lazySingleton<_i321.VocabularyRepository>(
+      () =>
+          _i593.VocabularyRepositoryImpl(gh<_i360.LanguageFireStoreService>()),
+    );
     gh.lazySingleton<_i624.GetPostUseCase>(
       () => _i624.GetPostUseCase(
         gh<_i857.PostRepository>(instanceName: 'firestore'),
       ),
+    );
+    gh.lazySingleton<_i292.VocabulariesUseCase>(
+      () => _i292.VocabulariesUseCase(gh<_i321.VocabularyRepository>()),
     );
     gh.lazySingleton<_i426.LanguagesUseCase>(
       () => _i426.LanguagesUseCase(gh<_i1054.LanguageRepository>()),
@@ -115,6 +133,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i156.PostBloc>(
       () => _i156.PostBloc(gh<_i624.GetPostUseCase>()),
+    );
+    gh.factory<_i144.VocabularyPracticeBloc>(
+      () => _i144.VocabularyPracticeBloc(gh<_i292.VocabulariesUseCase>()),
     );
     return this;
   }

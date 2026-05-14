@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'app_state_base.dart';
 
@@ -11,7 +12,12 @@ class CommonState<T> with _$CommonState<T> implements AppStateBase {
 
   const factory CommonState.loading() = _Loading;
 
-  const factory CommonState.success(T data) = _Success<T>;
+  const factory CommonState.success(
+    T data, {
+    @Default(false) bool isLoadMore,
+    @Default(false) bool hasReachedMax,
+    DocumentSnapshot? lastDoc,
+  }) = _Success<T>;
 
   const factory CommonState.failure(String message) = _Failure;
 
@@ -30,5 +36,6 @@ class CommonState<T> with _$CommonState<T> implements AppStateBase {
         : data != null;
   }
 
-  T? get data => maybeWhen(success: (data) => data, orElse: () => null);
+  T? get data =>
+      maybeWhen(success: (data, _, _, _) => data, orElse: () => null);
 }

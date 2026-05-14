@@ -128,12 +128,12 @@ return failure(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( T data)?  success,TResult Function( String message)?  failure,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( T data,  bool isLoadMore,  bool hasReachedMax,  DocumentSnapshot? lastDoc)?  success,TResult Function( String message)?  failure,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case _Loading() when loading != null:
 return loading();case _Success() when success != null:
-return success(_that.data);case _Failure() when failure != null:
+return success(_that.data,_that.isLoadMore,_that.hasReachedMax,_that.lastDoc);case _Failure() when failure != null:
 return failure(_that.message);case _:
   return orElse();
 
@@ -152,12 +152,12 @@ return failure(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( T data)  success,required TResult Function( String message)  failure,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( T data,  bool isLoadMore,  bool hasReachedMax,  DocumentSnapshot? lastDoc)  success,required TResult Function( String message)  failure,}) {final _that = this;
 switch (_that) {
 case _Initial():
 return initial();case _Loading():
 return loading();case _Success():
-return success(_that.data);case _Failure():
+return success(_that.data,_that.isLoadMore,_that.hasReachedMax,_that.lastDoc);case _Failure():
 return failure(_that.message);case _:
   throw StateError('Unexpected subclass');
 
@@ -175,12 +175,12 @@ return failure(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( T data)?  success,TResult? Function( String message)?  failure,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( T data,  bool isLoadMore,  bool hasReachedMax,  DocumentSnapshot? lastDoc)?  success,TResult? Function( String message)?  failure,}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case _Loading() when loading != null:
 return loading();case _Success() when success != null:
-return success(_that.data);case _Failure() when failure != null:
+return success(_that.data,_that.isLoadMore,_that.hasReachedMax,_that.lastDoc);case _Failure() when failure != null:
 return failure(_that.message);case _:
   return null;
 
@@ -257,10 +257,13 @@ String toString() {
 
 
 class _Success<T> extends CommonState<T> {
-  const _Success(this.data): super._();
+  const _Success(this.data, {this.isLoadMore = false, this.hasReachedMax = false, this.lastDoc}): super._();
   
 
  final  T data;
+@JsonKey() final  bool isLoadMore;
+@JsonKey() final  bool hasReachedMax;
+ final  DocumentSnapshot? lastDoc;
 
 /// Create a copy of CommonState
 /// with the given fields replaced by the non-null parameter values.
@@ -272,16 +275,16 @@ _$SuccessCopyWith<T, _Success<T>> get copyWith => __$SuccessCopyWithImpl<T, _Suc
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Success<T>&&const DeepCollectionEquality().equals(other.data, data));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Success<T>&&const DeepCollectionEquality().equals(other.data, data)&&(identical(other.isLoadMore, isLoadMore) || other.isLoadMore == isLoadMore)&&(identical(other.hasReachedMax, hasReachedMax) || other.hasReachedMax == hasReachedMax)&&(identical(other.lastDoc, lastDoc) || other.lastDoc == lastDoc));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(data));
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(data),isLoadMore,hasReachedMax,lastDoc);
 
 @override
 String toString() {
-  return 'CommonState<$T>.success(data: $data)';
+  return 'CommonState<$T>.success(data: $data, isLoadMore: $isLoadMore, hasReachedMax: $hasReachedMax, lastDoc: $lastDoc)';
 }
 
 
@@ -292,7 +295,7 @@ abstract mixin class _$SuccessCopyWith<T,$Res> implements $CommonStateCopyWith<T
   factory _$SuccessCopyWith(_Success<T> value, $Res Function(_Success<T>) _then) = __$SuccessCopyWithImpl;
 @useResult
 $Res call({
- T data
+ T data, bool isLoadMore, bool hasReachedMax, DocumentSnapshot? lastDoc
 });
 
 
@@ -309,10 +312,13 @@ class __$SuccessCopyWithImpl<T,$Res>
 
 /// Create a copy of CommonState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? data = freezed,}) {
+@pragma('vm:prefer-inline') $Res call({Object? data = freezed,Object? isLoadMore = null,Object? hasReachedMax = null,Object? lastDoc = freezed,}) {
   return _then(_Success<T>(
 freezed == data ? _self.data : data // ignore: cast_nullable_to_non_nullable
-as T,
+as T,isLoadMore: null == isLoadMore ? _self.isLoadMore : isLoadMore // ignore: cast_nullable_to_non_nullable
+as bool,hasReachedMax: null == hasReachedMax ? _self.hasReachedMax : hasReachedMax // ignore: cast_nullable_to_non_nullable
+as bool,lastDoc: freezed == lastDoc ? _self.lastDoc : lastDoc // ignore: cast_nullable_to_non_nullable
+as DocumentSnapshot?,
   ));
 }
 

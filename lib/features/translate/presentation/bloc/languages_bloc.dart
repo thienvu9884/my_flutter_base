@@ -14,14 +14,50 @@ class LanguagesBloc
     on<LanguagesEvent>((event, emit) async {
       await event.when(
         getLanguages: (category) async {
-          emit(const CommonState.loading());
+          await state.maybeMap(
+            success: (currentState) async {
+              // 1. CHẶN: Nếu đang load hoặc đã hết data thì không làm gì cả
+              if (currentState.isLoadMore || currentState.hasReachedMax) return;
 
-          try {
-            final result = await _languagesUseCase.execute(category);
-            emit(CommonState.success(result));
-          } catch (e) {
-            emit(CommonState.failure(e.toString()));
-          }
+              // 2. BẬT LOADING: dùng copyWith để UI hiện vòng quay ở cuối
+              emit(currentState.copyWith(isLoadMore: true));
+
+              try {
+                // 3. QUAN TRỌNG: Lấy lastDoc trực tiếp từ currentState (State hiện tại của Bloc)
+                final result = await _languagesUseCase.execute(
+                  category,
+                  lastDoc: currentState.lastDoc,
+                );
+
+                emit(
+                  currentState.copyWith(
+                    isLoadMore: false,
+                    data: [...currentState.data, ...result.entities],
+                    lastDoc: result.lastDoc,
+                    hasReachedMax: result.entities.isEmpty,
+                  ),
+                );
+              } catch (e) {
+                emit(currentState.copyWith(isLoadMore: false));
+              }
+            },
+            // Trường hợp load lần đầu (Initial/Loading/Failure)
+            orElse: () async {
+              emit(const CommonState.loading());
+              try {
+                final result = await _languagesUseCase.execute(category);
+                emit(
+                  CommonState.success(
+                    result.entities,
+                    lastDoc: result.lastDoc,
+                    hasReachedMax: result.entities.isEmpty,
+                  ),
+                );
+              } catch (e) {
+                emit(CommonState.failure(e.toString()));
+              }
+            },
+          );
         },
       );
     });

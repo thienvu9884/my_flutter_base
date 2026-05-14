@@ -17,6 +17,7 @@ dependencies:
   flutter_secure_storage: ^10.1.0
   pretty_dio_logger: ^1.4.0
   injectable: ^3.0.0
+  cloud_firestore: ^6.4.0
 
 dev_dependencies:
   flutter_test:

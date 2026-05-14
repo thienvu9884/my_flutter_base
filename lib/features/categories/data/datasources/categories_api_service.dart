@@ -30,7 +30,6 @@ class CategoriesApiService {
 
   Future<void> deleteCategory(String name, String id) async {
     await _deleteCollectionInBatches(name);
-    print(name);
 
     // 2. Sau đó xóa document định danh trong collection 'collections'
     // ĐẶT Ở ĐÂY:

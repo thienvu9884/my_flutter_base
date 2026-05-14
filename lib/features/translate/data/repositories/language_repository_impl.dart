@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_base/features/translate/data/datasources/fire_store_service.dart';
 import 'package:flutter_base/features/translate/data/models/language_model.dart';
 import 'package:flutter_base/features/translate/domain/entities/language_entity.dart';
+import 'package:flutter_base/features/translate/domain/entities/paginated_language_result.dart';
 import 'package:flutter_base/features/translate/domain/repository/language_repository.dart';
 import 'package:injectable/injectable.dart';
 
@@ -11,12 +13,20 @@ class LanguageRepositoryImpl implements LanguageRepository {
   LanguageRepositoryImpl(this._fireStoreApiService);
 
   @override
-  Future<List<LanguageEntity>> getLanguages(String category) async {
+  Future<PaginatedLanguageResult> getVocabularies(
+    String category, {
+    DocumentSnapshot? lastDoc,
+  }) async {
     try {
-      final List<LanguageModel> response = await _fireStoreApiService
-          .getLanguages(category);
+      // Gọi service với lastDoc
+      final response = await _fireStoreApiService.getVocabularies(
+        category,
+        lastDoc: lastDoc,
+      );
 
-      return response.map((model) => model.toEntity()).toList();
+      final entities = response.items.map((model) => model.toEntity()).toList();
+
+      return PaginatedLanguageResult(entities, response.lastDoc);
     } catch (e) {
       rethrow;
     }
